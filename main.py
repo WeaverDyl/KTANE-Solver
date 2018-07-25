@@ -1,6 +1,6 @@
 from bomb import Bomb
-from simple_wires import SimpleWires
-from morse_code import MorseCode
+from game_modules.simple_wires import SimpleWires
+from game_modules.morse_code import MorseCode
 
 def main():
     bomb = Bomb() # Create a new bomb instance, which stores indicator/battery/other info
