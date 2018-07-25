@@ -1,11 +1,17 @@
-from constants import collect_info
-from simple_wires import start_simple_wires
+from bomb import Bomb
+from simple_wires import SimpleWires
 
-if __name__ == "__main__":
-    bomb_info = collect_info()
+def main():
+    bomb = Bomb() # Create a new bomb instance, which stores indicator/battery/other info
 
+    # Pick a module
     while True:
         curr_module = input("What module would you like to solve? Your options are:\n\n"\
                             "Simple Wires\n\n")
+
         if curr_module.lower() == 'simple wires':
-            print(start_simple_wires(bomb_info))
+            simple_wires = SimpleWires()
+            simple_wires.start_simple_wires(bomb)
+
+if __name__ == "__main__":
+    main() # Begin!
