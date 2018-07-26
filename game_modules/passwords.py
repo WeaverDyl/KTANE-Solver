@@ -1,5 +1,5 @@
 class Passwords:    
-    def start_passwords(self):
+    def start_passwords(self, bomb):
         user_characters = input("Enter all letters with no seperation (30 letters total): ")
         # Split the characters up into their seperate columns (each column has 5 characters)
         split_chars = [user_characters[i : i + 6] for i in range(0, len(user_characters), 6)]

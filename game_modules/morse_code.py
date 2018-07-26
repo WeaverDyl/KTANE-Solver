@@ -47,7 +47,7 @@ class MorseCode:
         '--..' : 'z'
     }
 
-    def start_morse_code(self):
+    def start_morse_code(self, bomb):
         # Input the actual dots and dashes
         morse_code = input("Input each morse code character seperated by a space. ")
         # Convert the morse characters into letters by looking each character up
@@ -62,4 +62,4 @@ class MorseCode:
         except KeyError:
             # The user interpreted the morse code incorrectly
             print("An error occurred! Please try again.")
-            self.start_morse_code()
+            self.start_morse_code(bomb)
