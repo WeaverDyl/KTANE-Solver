@@ -1,14 +1,17 @@
 from inflection import ordinalize
 
 class Stager:
-    def __init__(self, specific_stage_position=0, generic_position=0, specific_stage_label=0, specific_label=0):
-        self.specific_stage_position = specific_stage_position
-        self.generic_position = generic_position
-        self.specific_stage_label = specific_stage_label
-        self.specific_label = specific_label
+    # Used to handle which button should be pressed
+    def __init__(self, specific_stage_position=None, generic_position=None, specific_stage_label=None, specific_label=None):
+        self.specific_stage_position = specific_stage_position # "Press button in same position as in stage _"
+        self.generic_position = generic_position # "Push button in _ position"
+        self.specific_stage_label = specific_stage_label # "Push button with same label as in stage _"
+        self.specific_label = specific_label # "Push button labelled _"
 
 class Memory:
+    # Runs the actual memory module solver
 
+    # Stores the position and value of the button pressed at each stage
     memory = {
         # Position, Value
         1 : [None, None],
@@ -29,37 +32,37 @@ class Memory:
         curr_instruction = None
 
         if curr_stage == 1:
-            if display == 1: curr_instruction = Stager(0, 2, 0, 0)
-            elif display == 2: curr_instruction = Stager(0, 2, 0, 0)
-            elif display == 3: curr_instruction = Stager(0, 3, 0, 0)
-            elif display == 4: curr_instruction = Stager(0, 4, 0, 0)
+            if display == 1: curr_instruction = Stager(generic_position=2)
+            elif display == 2: curr_instruction = Stager(generic_position=2)
+            elif display == 3: curr_instruction = Stager(generic_position=3)
+            elif display == 4: curr_instruction = Stager(generic_position=4)
 
         elif curr_stage == 2:
-            if display == 1: curr_instruction = Stager(0, 0, 0, 4)
-            elif display == 2: curr_instruction = Stager(self.get_info_from_stage(1)[0], 0, 0, 0)
-            elif display == 3: curr_instruction = Stager(0, 1, 0, 0)
-            elif display == 4: curr_instruction = Stager(self.get_info_from_stage(1)[0], 0, 0, 0)
+            if display == 1: curr_instruction = Stager(specific_label=4)
+            elif display == 2: curr_instruction = Stager(specific_stage_position=self.get_info_from_stage(1)[0])
+            elif display == 3: curr_instruction = Stager(generic_position=1)
+            elif display == 4: curr_instruction = Stager(specific_stage_position=self.get_info_from_stage(1)[0])
 
         elif curr_stage == 3:
-            if display == 1: curr_instruction = Stager(0, 0, self.get_info_from_stage(2)[1], 0)
-            elif display == 2: curr_instruction = Stager(0, 0, self.get_info_from_stage(1)[1], 0)
-            elif display == 3: curr_instruction = Stager(0, 3, 0, 0)
-            elif display == 4: curr_instruction = Stager(0, 0, 0, 4)
+            if display == 1: curr_instruction = Stager(specific_stage_label=self.get_info_from_stage(2)[1])
+            elif display == 2: curr_instruction = Stager(specific_stage_label=self.get_info_from_stage(1)[1])
+            elif display == 3: curr_instruction = Stager(generic_position=3)
+            elif display == 4: curr_instruction = Stager(specific_label=4)
 
         elif curr_stage == 4:
-            if display == 1: curr_instruction = Stager(self.get_info_from_stage(1)[0], 0, 0)
-            elif display == 2: curr_instruction = Stager(0, 1, 0, 0)
-            elif display == 3: curr_instruction = Stager(self.get_info_from_stage(2)[0], 0, 0, 0)
-            elif display == 4: curr_instruction = Stager(self.get_info_from_stage(2)[0], 0, 0, 0)
+            if display == 1: curr_instruction = Stager(specific_stage_position=self.get_info_from_stage(1)[0])
+            elif display == 2: curr_instruction = Stager(generic_position=1)
+            elif display == 3: curr_instruction = Stager(specific_stage_position=self.get_info_from_stage(2)[0])
+            elif display == 4: curr_instruction = Stager(specific_stage_position=self.get_info_from_stage(2)[0])
 
         elif curr_stage == 5:
-            if display == 1: curr_instruction = Stager(0, 0, self.get_info_from_stage(1)[1], 0)
-            elif display == 2: curr_instruction = Stager(0, 0, self.get_info_from_stage(2)[1], 0)
-            elif display == 3: curr_instruction = Stager(0, 0, self.get_info_from_stage(4)[1], 0)
-            elif display == 4: curr_instruction = Stager(0, 0, self.get_info_from_stage(3)[1], 0)
+            if display == 1: curr_instruction = Stager(specific_stage_label=self.get_info_from_stage(1)[1])
+            elif display == 2: curr_instruction = Stager(specific_stage_label=self.get_info_from_stage(2)[1])
+            elif display == 3: curr_instruction = Stager(specific_stage_label=self.get_info_from_stage(4)[1])
+            elif display == 4: curr_instruction = Stager(specific_stage_label=self.get_info_from_stage(3)[1])
 
         # Process curr_instruction to give directions
-        self.process_stage(curr_instruction)
+        self.print_result(curr_instruction)
 
         # Get the position of the button pressed
         if curr_instruction.generic_position:
@@ -70,8 +73,14 @@ class Memory:
             button_position = curr_instruction.specific_stage_label
         else:
             button_position = self.ask_position(curr_stage)
+        
         # Get the value of the button pressed
-        button_label = self.ask_button_label(curr_stage)
+        if curr_instruction.specific_label:
+            button_label = curr_instruction.specific_stage_label
+        elif curr_instruction.specific_stage_label:
+            button_label = curr_instruction.specific_stage_label
+        else:
+            button_label = self.ask_button_label(curr_stage)
         
         self.memory[curr_stage][0] = button_position
         self.memory[curr_stage][1] = button_label
@@ -99,6 +108,7 @@ class Memory:
             return self.ask_position(curr_stage)
 
     def get_info_from_stage(self, stage):
+        # Returns [position, value] of the button that the user presses for a stage
         return [self.memory[stage][0], self.memory[stage][1]]
 
     def ask_button_label(self, curr_stage):
@@ -112,7 +122,8 @@ class Memory:
             print("That's an invalid label.")
             return self.ask_button_label(curr_stage)
 
-    def process_stage(self, curr_instruction):
+    def print_result(self, curr_instruction):
+        # Based on the instruction, print the correct directions
         if curr_instruction.specific_stage_position:
             print(f"Press the button in the {ordinalize(curr_instruction.specific_stage_position)} position.")
         elif curr_instruction.generic_position:
