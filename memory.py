@@ -64,26 +64,26 @@ class Memory:
         # Process curr_instruction to give directions
         self.print_result(curr_instruction)
 
-        # Get the position of the button pressed
-        if curr_instruction.generic_position:
-            button_position = curr_instruction.generic_position
-        elif curr_instruction.specific_stage_position:
-            button_position = curr_instruction.specific_stage_position
-        elif curr_instruction.specific_stage_label:
-            button_position = curr_instruction.specific_stage_label
-        else:
-            button_position = self.ask_position(curr_stage)
-        
-        # Get the value of the button pressed
-        if curr_instruction.specific_label:
-            button_label = curr_instruction.specific_stage_label
-        elif curr_instruction.specific_stage_label:
-            button_label = curr_instruction.specific_stage_label
-        else:
-            button_label = self.ask_button_label(curr_stage)
-        
-        self.memory[curr_stage][0] = button_position
-        self.memory[curr_stage][1] = button_label
+        # Collect position and value information for the first 4 stages
+        if curr_stage != 5:
+            # Get the position of the button pressed
+            if curr_instruction.generic_position:
+                button_position = curr_instruction.generic_position
+            elif curr_instruction.specific_stage_position:
+                button_position = curr_instruction.specific_stage_position
+            else:
+                button_position = self.ask_position(curr_stage)
+            
+            # Get the value of the button pressed
+            if curr_instruction.specific_label:
+                button_label = curr_instruction.specific_stage_label
+            elif curr_instruction.specific_stage_label:
+                button_label = curr_instruction.specific_stage_label
+            else:
+                button_label = self.ask_button_label(curr_stage)
+            
+            self.memory[curr_stage][0] = button_position
+            self.memory[curr_stage][1] = button_label
 
     def get_display(self):
         # Asks for the current number on the display

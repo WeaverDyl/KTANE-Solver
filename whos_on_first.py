@@ -77,7 +77,6 @@ class WhosOnFirst:
                 print("Push the first button on your screen that appears on this list:")
                 print(self.corresponding_label[button_text])
 
-                # Confirm it worked and the user didn't get a strike before incrementing round number!!
                 # Do this three times to complete the module
                 if round_number < 2:
                     round_number = round_number + 1
