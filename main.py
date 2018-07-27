@@ -5,6 +5,7 @@ from passwords import Passwords
 from whos_on_first import WhosOnFirst
 from memory import Memory
 from keypads import Keypads
+from wire_sequences import WireSequences
 
 def main():
     bomb = Bomb() # Create a new bomb instance, which stores indicator/battery/other info
@@ -13,7 +14,7 @@ def main():
     while True:
         curr_module = input("What module would you like to solve? Your options are:\n\n"\
                             "Simple Wires / Morse Code / Passwords / Who's on First\n"\
-                            "Memory / Keypads\n\n")
+                            "Memory / Keypads / Wire Sequences\n\n")
 
         if curr_module.lower() == 'simple wires':
             simple_wires = SimpleWires()
@@ -38,6 +39,10 @@ def main():
         if curr_module.lower() == 'keypads':
             keypads = Keypads()
             keypads.start_keypads()
+
+        if curr_module.lower() == 'wire sequences':
+            wire_sequences = WireSequences()
+            wire_sequences.start_wire_sequences()
 
 if __name__ == "__main__":
     main() # Begin!

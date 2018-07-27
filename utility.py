@@ -6,3 +6,7 @@ def print_list(lst, per_line):
         print(", ".join(lst[line_start:line_end]))
         line_start = line_end
     print()
+
+def print_and_wait(message):
+    print(message)
+    input("Press enter to continue...")
