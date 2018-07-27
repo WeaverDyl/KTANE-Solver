@@ -1,10 +1,12 @@
+from utility import print_and_wait
+
 class SimpleWires:
     def start_simple_wires(self, bomb):
         self.wires = input("Enter the first letter of the color of each wire. ").lower()
 
         # Check if the wires are valid, restarting the process if not
         if not self.check_valid_wires(self.wires):
-            print("You've entered an invalid list!\n")
+            print_and_wait("You've entered an invalid list! Please re-enter your list.")
             self.start_simple_wires(bomb)
 
         # Runs the correct function based on the number of wires
@@ -15,7 +17,7 @@ class SimpleWires:
             6: self.six_wires(bomb, self.wires),
         }[len(self.wires)]
 
-        print(result) # Prints which wire to cut
+        print_and_wait(result) # Prints which wire to cut
         return
 
     def check_valid_wires(self, wires):

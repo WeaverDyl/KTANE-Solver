@@ -22,7 +22,7 @@ def main():
             
         if curr_module.lower() == 'morse code':
             morse_code = MorseCode()
-            morse_code.start_morse_code(bomb)
+            morse_code.start_morse_code()
             
         if curr_module.lower() == 'passwords':
             passwords = Passwords()
