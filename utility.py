@@ -8,5 +8,7 @@ def print_list(lst, per_line):
     print()
 
 def print_and_wait(message):
+    print()
     print(message)
     input("Press enter to continue...")
+    print()
