@@ -30,7 +30,7 @@ def main():
 
         if curr_module.lower() == 'who\'s on first':
             whos_on_first = WhosOnFirst()
-            whos_on_first.start_whos_on_first(bomb, 0)
+            whos_on_first.start_whos_on_first()
 
         if curr_module.lower() == 'memory':
             memory = Memory()

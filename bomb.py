@@ -13,8 +13,8 @@ class Bomb:
     def collect_info(self):
         serial_no = self.enter_serial()
         batteries = input("How many batteries are there on the bomb? ")
-        indicators = [i.strip() for i in input("Enter a comma-seperated list of lit indicators on the bomb. ").split(',')]
-        ports = [i.strip() for i in input("Enter a comma-seperated list of ports on the bomb. ").split(',')]
+        indicators = [i.strip() for i in input("Enter a comma-seperated list of lit indicators on the bomb: ").split(',')]
+        ports = [i.strip() for i in input("Enter a comma-seperated list of ports on the bomb: ").split(',')]
 
         return serial_no, batteries, indicators, ports
 
