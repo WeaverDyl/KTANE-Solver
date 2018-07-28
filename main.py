@@ -6,6 +6,7 @@ from whos_on_first import WhosOnFirst
 from memory import Memory
 from keypads import Keypads
 from wire_sequences import WireSequences
+from button import Button
 from knobs import Knobs
 
 def main():
@@ -15,7 +16,9 @@ def main():
     while True:
         curr_module = input("What module would you like to solve? Your options are:\n\n"\
                             "Simple Wires / Morse Code / Passwords / Who's on First\n"\
-                            "Memory / Keypads / Wire Sequences / Knobs\n\n")
+                            "Memory / Keypads / Wire Sequences / Button / Knobs / Quit\n\n")
+
+        # Reorder to manual specs
 
         if curr_module.lower() == 'simple wires':
             simple_wires = SimpleWires()
@@ -45,9 +48,17 @@ def main():
             wire_sequences = WireSequences()
             wire_sequences.start_wire_sequences()
 
+        if curr_module.lower() == 'button':
+            button = Button()
+            button.start_button(bomb)
+
         if curr_module.lower() == 'knobs':
             knobs = Knobs()
             knobs.start_knobs()
 
+        if curr_module.lower() == 'quit':
+            break
+
 if __name__ == "__main__":
     main() # Begin!
+    print("Goodbye!")
