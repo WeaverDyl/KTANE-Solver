@@ -78,7 +78,14 @@ class WhosOnFirst:
             round_number += 1
 
     def get_display_word(self):
-        return input("What word appears on the display? If it's empty, enter `empty`: ").lower()
+        display_word = input("What word appears on the display? If it's empty, enter `empty`: ").lower()
+        
+        # Ensure the display word is valid
+        if display_word in self.display_label_instructions:
+            return display_word
+        else:
+            print_and_wait("Invalid display word, please try again.")
+            return self.get_display_word()
 
     def get_all_buttons(self):
         # Get each column of button texts from the user
