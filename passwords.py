@@ -1,13 +1,24 @@
+from utility import print_and_wait
+
 class Passwords:    
     def start_passwords(self, bomb):
-        user_characters = input("Enter all letters with no seperation (30 letters total): ")
+        user_characters = self.get_user_letters()
         # Split the characters up into their seperate columns (each column has 5 characters)
         split_chars = [user_characters[i : i + 6] for i in range(0, len(user_characters), 6)]
         # Find the word based on the columns of letters
         word = self.solve(split_chars) 
 
-        print(f"The word is `{word}`.")
+        print_and_wait(f"The word is `{word}`.")
         return
+
+    def get_user_letters(self):
+        user_input = input("Enter all letters with no seperation (30 letters total): ")
+
+        if len(user_input) != 30:
+            print_and_wait("There was an error with your input. Please try again.")
+            return self.get_user_letters()
+        else:
+            return user_input
 
     def solve(self, columns):
         # The potential passwords

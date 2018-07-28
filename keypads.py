@@ -1,4 +1,4 @@
-from utility import print_list
+from utility import print_list, print_and_wait, wait
 
 class Keypads:
     # All the symbols from each column in one list
@@ -30,16 +30,18 @@ class Keypads:
             if symbol in user_symbols:
                 correct_order.append(symbol)
 
-        print("Click the symbols in the following order:")
+        print("\nClick the symbols in the following order:")
         # Return the correct order to click the symbols
         for symbol in correct_order:
             print(symbol)
+        wait()
 
     def get_user_symbols(self):
         # Asks the user for the symbols on their keypad and returns them as a list
         print("Please enter the symbols that are on your keypad. All of the symbols "\
-              "are printed here: \n")
+              "are printed here:\n")
         print_list(self.all_symbols, 5)
+        wait()
 
         symbol_one = self.get_symbol_input()
         symbol_two = self.get_symbol_input()
@@ -50,7 +52,7 @@ class Keypads:
 
         # If no column has all of the user's symbols, make them re-enter them
         if not self.find_correct_column(symbol_list):
-            print("\nThere was an error. Ensure your symbols are correct.\n") # Press any button to continue (make user acknowledge error)
+            print_and_wait("There was an error. Ensure your symbols are correct.") # Press any button to continue (make user acknowledge error)
             return self.get_user_symbols()
 
         return symbol_list
@@ -62,7 +64,7 @@ class Keypads:
 
         # If the symbol is not valid, ask them to re-enter that symbol
         if symbol.lower() not in lower_list:
-            print("That is an invalid symbol. Please refer to the symbols above.")
+            print_and_wait("That is an invalid symbol. Please refer to the symbols above.")
             return self.get_symbol_input()
         else:
             return symbol

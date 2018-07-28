@@ -89,9 +89,10 @@ class WhosOnFirst:
 
     def get_all_buttons(self):
         # Get each column of button texts from the user
-        first_column = [x for x in input("Enter each button from the first column, seperated by a comma: ").split(",")]
-        second_column = [x for x in input("Enter each button from the second column, seperated by a comma: ").split(",")]
+        first_column = input("Enter each button from the first column, seperated by a comma and a space: ").split(", ")
+        second_column = input("Enter each button from the second column, seperated by a comma: ").split(", ")
 
+        # Verify that the columns contain valid words, and return them
         if self.verify_columns(first_column, second_column):
             return [first_column, second_column]
         else:

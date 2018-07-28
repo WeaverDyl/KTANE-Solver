@@ -1,4 +1,5 @@
 from inflection import ordinalize
+from utility import print_and_wait
 
 class Stager:
     # Used to handle which button should be pressed
@@ -24,6 +25,7 @@ class Memory:
     def start_memory(self, bomb):
         # Goes through each stage, solving the module for the user
         for curr_stage in range (1, 6):
+            print(f"\nRound {curr_stage}")
             display = self.get_display()
             self.handle_stages(curr_stage, display)
 
@@ -82,18 +84,19 @@ class Memory:
             else:
                 button_label = self.ask_button_label(curr_stage)
             
+            # Store the current stage's position and label
             self.memory[curr_stage][0] = button_position
             self.memory[curr_stage][1] = button_label
 
     def get_display(self):
         # Asks for the current number on the display
         valid_response = ["1", "2", "3", "4"]
-        display = input("\nWhat is the number on the display? ")
+        display = input("What is the number on the display? ")
         
         if display in valid_response:
             return int(display)
         else:
-            print("An error occurred, please check your input.")
+            print_and_wait("An error occurred, please check your input.")
             return self.get_display()
 
     def ask_position(self, curr_stage):
@@ -104,7 +107,7 @@ class Memory:
         if position in valid_positions:
             return int(position)
         else:
-            print("That's an invalid position.")
+            print_and_wait("That's an invalid position.")
             return self.ask_position(curr_stage)
 
     def get_info_from_stage(self, stage):
@@ -119,7 +122,7 @@ class Memory:
         if label in valid_button_labels:
             return int(label)
         else:
-            print("That's an invalid label.")
+            print_and_wait("That's an invalid label.")
             return self.ask_button_label(curr_stage)
 
     def print_result(self, curr_instruction):
