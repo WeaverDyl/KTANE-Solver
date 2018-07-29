@@ -24,7 +24,7 @@ class Memory:
 
     def start_memory(self, bomb):
         # Goes through each stage, solving the module for the user
-        for curr_stage in range (1, 6):
+        for curr_stage in range(1, 6):
             print(f"\nRound {curr_stage}")
             display = self.get_display()
             self.handle_stages(curr_stage, display)

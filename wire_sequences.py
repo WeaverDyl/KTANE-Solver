@@ -35,7 +35,7 @@ class WireSequences:
         print_and_wait("Ready to start. Please always enter wires from top to bottom!")
 
         # Go through each of the 4 rounds of wires
-        for number in range (1, 5):
+        for number in range(1, 5):
             print(f"Round {number}")
             self.input_wire_level(wire_instance)
         
