@@ -13,7 +13,7 @@ class Bomb:
         serial_no = self.enter_serial()
         batteries = self.enter_batteries()
         indicators = self.enter_indicators()
-        ports = [i.strip() for i in input("Enter a comma-seperated list of ports on the bomb: ").split(',')]
+        ports = self.enter_ports()
 
         return serial_no, batteries, indicators, ports
 
@@ -28,6 +28,22 @@ class Bomb:
         else:
             return serial_no
 
+    def last_serial_even(self):
+        # Returns True if the last digit of the serial number is even, False otherwise
+        try:
+            if int(self.serial_no[-1]) % 2 == 0:
+                return True
+            else:
+                return False
+        except ValueError:
+            return False
+
+    def vowel_in_serial(self):
+        for letter in self.serial_no:
+            if letter.lower() in "aeiou":
+                return True
+        return False
+
     def enter_batteries(self):
         # Asks user how many batteries there are on the bomb
         try:
@@ -36,6 +52,10 @@ class Bomb:
         except ValueError:
             print_and_wait("Invalid number of batteries. Please try again.")
             return self.enter_batteries()
+
+    def get_num_batteries(self):
+        # Returns the number of batteries in the bomb
+        return self.num_batteries
 
     def enter_indicators(self):
         # Asks user for lit indicators
@@ -50,11 +70,20 @@ class Bomb:
         return indicators
     
     def enter_ports(self):
-        pass
+        # Asjs user for the ports on the bomb
+        valid_ports = ["dvi-d", "parallel", "ps/2", "rj-45", "serial", "stereo rca"]
+        ports = [port.upper() for port in input("Enter all ports on the bomb, seperated by a space: ").strip().split()]
 
-    def vowel_in_serial(self):
-        for letter in self.serial_no:
-            if letter.lower() in "aeiou":
+        # Check that all ports entered are valid
+        for port in ports:
+            if port.lower() not in valid_ports:
+                print_and_wait("Invalid port entered. Please re-enter the ports.")
+                return self.enter_ports()
+        return ports
+
+    def has_parallel_port(self):
+        for port in self.ports:
+            if port.lower() == "parallel":
                 return True
         return False
 

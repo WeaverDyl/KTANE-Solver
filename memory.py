@@ -15,11 +15,11 @@ class Memory:
     # Stores the position and value of the button pressed at each stage
     memory = {
         # Position, Value
-        1 : [None, None],
-        2 : [None, None],
-        3 : [None, None],
-        4 : [None, None],
-        5 : [None, None]
+        1: [None, None],
+        2: [None, None],
+        3: [None, None],
+        4: [None, None],
+        5: [None, None]
     }
 
     def start_memory(self, bomb):

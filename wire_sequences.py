@@ -23,9 +23,9 @@ class Wire:
 class WireSequences:
     # The lookup table to determine if the user should cut a wire based on its connection
     cut_table = {
-        "red" : [["c"], ["b"], ["a"], ["a", "c"], ["b"], ["a", "c"], ["a", "b", "c"], ["a", "b"], ["b"]],
-        "blue" : [["b"], ["a", "c"], ["b"], ["a"], ["b"], ["b", "c"], ["c"], ["a", "c"], ["a"]],
-        "black" : [["a", "b", "c"], ["a", "c"], ["b"], ["a", "c"], ["b"], ["b", "c"], ["a", "b"], ["c"], ["c"]]
+        "red": [["c"], ["b"], ["a"], ["a", "c"], ["b"], ["a", "c"], ["a", "b", "c"], ["a", "b"], ["b"]],
+        "blue": [["b"], ["a", "c"], ["b"], ["a"], ["b"], ["b", "c"], ["c"], ["a", "c"], ["a"]],
+        "black": [["a", "b", "c"], ["a", "c"], ["b"], ["a", "c"], ["b"], ["b", "c"], ["a", "b"], ["c"], ["c"]]
     }
 
     def start_wire_sequences(self):

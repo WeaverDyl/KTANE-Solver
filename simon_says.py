@@ -4,19 +4,19 @@ class SimonSays:
     # Use for translating a color when the bomb has vowels in the serial number
     # Blinking color => [no strikes, one strike, two strikes]
     translate_with_vowels = {
-        "red" : ["blue", "yellow", "green"],
-        "blue" : ["red", "green", "red"],
-        "green" : ["yellow", "blue", "yellow"],
-        "yellow" : ["green", "red", "blue"]
+        "red": ["blue", "yellow", "green"],
+        "blue": ["red", "green", "red"],
+        "green": ["yellow", "blue", "yellow"],
+        "yellow": ["green", "red", "blue"]
     }
 
     # Use for translating a color when the bomb has no vowels in the serial number
     # Blinking color => [no strikes, one strike, two strikes]
     translate_without_vowels = {
-        "red" : ["blue", "red", "yellow"],
-        "blue" : ["yellow", "blue", "green"],
-        "green" : ["green", "yellow", "blue"],
-        "yellow" : ["red", "green", "red"]
+        "red": ["blue", "red", "yellow"],
+        "blue": ["yellow", "blue", "green"],
+        "green": ["green", "yellow", "blue"],
+        "yellow": ["red", "green", "red"]
     }
 
     def start_simon_says(self, bomb):
