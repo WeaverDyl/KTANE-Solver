@@ -8,7 +8,6 @@ class Bomb:
         self.num_batteries = bomb_data[1] # The number of batteries contained in the bomb
         self.lit_indicators = bomb_data[2] # A list of all lit indicators on the bomb
         self.ports = bomb_data[3] # All of the ports on the bomb
-        self.strikes = 0 # The number of strikes can affect diffusal
 
     def collect_info(self):
         serial_no = self.enter_serial()
@@ -53,5 +52,20 @@ class Bomb:
     def enter_ports(self):
         pass
 
-    def set_strikes(self, num_strikes):
-        self.strikes = num_strikes
+    def vowel_in_serial(self):
+        for letter in self.serial_no:
+            if letter.lower() in "aeiou":
+                return True
+        return False
+
+    def ask_strikes(self):
+        # Gets the number of strikes from the user, which affects the solution
+        try:
+            num_strikes = input("How many strikes does the bomb have right now? ")
+            if int(num_strikes) not in range(0, 3):
+                raise ValueError("The bomb can only have 0, 1, or 2 strikes before exploding.")
+            else:
+                return int(num_strikes)
+        except ValueError:
+            print_and_wait("Invalid number of strikes. Please try again")
+            return self.ask_strikes()

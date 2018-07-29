@@ -14,6 +14,7 @@ class Passwords:
     def get_user_letters(self):
         user_input = input("Enter all letters with no seperation (30 letters total): ")
 
+        # There are 30 total characters (6 characters x 5 columns)
         if len(user_input) != 30:
             print_and_wait("There was an error with your input. Please try again.")
             return self.get_user_letters()

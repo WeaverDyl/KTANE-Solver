@@ -25,8 +25,8 @@ class Knobs:
         self.start_knobs()
 
     def get_led_rows(self):
-        led_row_1 = input("Enter the first row of LED's: ").strip().split(" ")
-        led_row_2 = input("Enter the second row of LED's: ").strip().split(" ")
+        led_row_1 = input("Enter the first row of LED's: ").strip().split()
+        led_row_2 = input("Enter the second row of LED's: ").strip().split()
         
         # Validate that the lists are the correct length
         if self.validate_led_list(led_row_1, led_row_2):
