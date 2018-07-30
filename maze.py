@@ -18,6 +18,7 @@ class Maze:
         print_and_wait("Done.")
 
     def get_indicator_pos(self):
+        # Gets an indicator position from the user
         valid_indicators = [(0, 1), (5, 2), (4, 1), (1, 3), (3, 3), (5, 3), 
                             (0, 0), (0, 3), (4, 2), (3, 5), (4, 0), (2, 4),
                             (1, 0), (1, 5), (3, 0), (2, 3), (1, 2), (0, 4)]
@@ -66,6 +67,7 @@ class Maze:
             return self.get_goal_pos()
 
     def solve_maze(self, indicator_pos, user_pos, goal_pos, maze):
+        # Solve the maze, returning the directions
         # From https://github.com/masasin/keep_talking_solver
         visited = []
         branches = []
@@ -74,19 +76,18 @@ class Maze:
         while (i, j) != goal_pos:
             visited.append((i, j))
             moves.append((i, j))
-            val = maze[j][i] # why [j][i] and not [i][j]
-            n_possible = len(val)# possible moves at val (eg "udlr" = 4)
-            if "u" in val and (i, j - 1) in visited: # if already visited the up coord, we shouldn't go up
+            val = maze[j][i]
+            n_possible = len(val)
+            if "u" in val and (i, j - 1) in visited:
                 n_possible -= 1 
-            if "d" in val and (i, j + 1) in visited: # if already visited the down coord, we shouldn't go down
+            if "d" in val and (i, j + 1) in visited:
                 n_possible -= 1
-            if "l" in val and (i - 1, j) in visited: # if already visited the left coord, we shouldn't go left
+            if "l" in val and (i - 1, j) in visited:
                 n_possible -= 1
-            if "r" in val and (i + 1, j) in visited: # if already visited the right coord, we shouldn't go right
+            if "r" in val and (i + 1, j) in visited:
                 n_possible -= 1
 
             if n_possible > 1:
-			# If there's a path to go, add our coords to branches
                 branches.append((i, j))
 
             if "u" in val and (i, j - 1) not in visited:
