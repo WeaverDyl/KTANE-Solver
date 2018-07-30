@@ -2,6 +2,7 @@ from utility import print_and_wait
 
 class Maze:
     def start_maze(self):
+        # Start solving the module
         print("The top left corner is `0, 0`. The top right corner is `5, 0")
         # Collect information
         indicator_pos = self.get_indicator_pos()
@@ -10,7 +11,11 @@ class Maze:
         maze = self.determine_maze(indicator_pos)
 
         # Solve the maze
-        self.solve_maze(indicator_pos, user_pos, goal_pos, maze)
+        moves = self.solve_maze(indicator_pos, user_pos, goal_pos, maze)
+        print("Solution:")
+        for move in moves:
+            print(move, end=", ")
+        print_and_wait("Done.")
 
     def get_indicator_pos(self):
         valid_indicators = [(0, 1), (5, 2), (4, 1), (1, 3), (3, 3), (5, 3), 
@@ -61,7 +66,53 @@ class Maze:
             return self.get_goal_pos()
 
     def solve_maze(self, indicator_pos, user_pos, goal_pos, maze):
-        pass
+        # From https://github.com/masasin/keep_talking_solver
+        visited = []
+        branches = []
+        moves = []
+        i, j = user_pos
+        while (i, j) != goal_pos:
+            visited.append((i, j))
+            moves.append((i, j))
+            val = maze[j][i] # why [j][i] and not [i][j]
+            n_possible = len(val)# possible moves at val (eg "udlr" = 4)
+            if "u" in val and (i, j - 1) in visited: # if already visited the up coord, we shouldn't go up
+                n_possible -= 1 
+            if "d" in val and (i, j + 1) in visited: # if already visited the down coord, we shouldn't go down
+                n_possible -= 1
+            if "l" in val and (i - 1, j) in visited: # if already visited the left coord, we shouldn't go left
+                n_possible -= 1
+            if "r" in val and (i + 1, j) in visited: # if already visited the right coord, we shouldn't go right
+                n_possible -= 1
+
+            if n_possible > 1:
+			# If there's a path to go, add our coords to branches
+                branches.append((i, j))
+
+            if "u" in val and (i, j - 1) not in visited:
+                j -= 1
+            elif "d" in val and (i, j + 1) not in visited:
+                j += 1
+            elif "l" in val and (i - 1, j) not in visited:
+                i -= 1
+            elif "r" in val and (i + 1, j) not in visited:
+                i += 1
+            else:
+                i, j = branches.pop()
+                moves = moves[:moves.index((i, j))]
+
+        moves.append(goal_pos)
+        instructions = []
+        for current, move in zip(moves, moves[1:]):
+            if move[1] < current[1]:
+                instructions.append("up")
+            elif move[1] > current[1]:
+                instructions.append("down")
+            elif move[0] < current[0]:
+                instructions.append("left")
+            else:
+                instructions.append("right")
+        return instructions
 
     def determine_maze(self, indicator):
         # Using one of the white indicators, determines the
