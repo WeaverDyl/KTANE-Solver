@@ -39,7 +39,7 @@ class Knobs:
 
     def validate_led_list(self, list_1, list_2):
         # Checks to make sure the user's list of LED's is of the right length and content
-        if len(list_1) and len(list_2) == 6: # Each row has 6 LED's
+        if len(list_1) == 6 and len(list_2) == 6: # Each row has 6 LED's
             for (elem_1, elem_2) in zip(list_1, list_2):
                 try:
                     if int(elem_1) not in [0, 1] or int(elem_2) not in [0, 1]:
