@@ -70,7 +70,7 @@ class Bomb:
         return indicators
     
     def enter_ports(self):
-        # Asjs user for the ports on the bomb
+        # Asks user for the ports on the bomb
         valid_ports = ["dvi-d", "parallel", "ps/2", "rj-45", "serial", "stereo rca"]
         ports = [port.upper() for port in input("Enter all ports on the bomb, seperated by a space: ").strip().split()]
 
